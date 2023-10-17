@@ -12,14 +12,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/daxoliveira/shorts_summary_vite_vanilla_js.git"
-  },
-  "bugs": {
-    "url": "https://github.com/daxoliveira/shorts_summary_vite_vanilla_js/issues"
-  },
-  "homepage": "https://github.com/daxoliveira/shorts_summary_vite_vanilla_js#readme",
   "dependencies": {
     "@xenova/transformers": "^2.6.2",
     "axios": "^1.5.1",
