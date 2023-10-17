@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "env YTDL_NO_UPDATE=1 nodemon --no-warnings index.js",
+    "test": "echo \"No test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daxoliveira/shorts_summary_vite_vanilla_js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/daxoliveira/shorts_summary_vite_vanilla_js/issues"
+  },
+  "homepage": "https://github.com/daxoliveira/shorts_summary_vite_vanilla_js#readme",
+  "dependencies": {
+    "@xenova/transformers": "^2.6.2",
+    "axios": "^1.5.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "ffmpeg-static": "^5.2.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "node-wav": "^0.0.2",
+    "ytdl-core": "4.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
