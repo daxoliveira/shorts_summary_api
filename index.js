@@ -13,7 +13,8 @@ const app = express()
 app.use(express.json())
 
 const allowedOrigins = [
-  'https://shorts-summary-client.netlify.app'
+  'https://shorts-summary-client.netlify.app',
+  'http://localhost:5173'
 ];
 
 const corsOptions = {
