@@ -12,32 +12,25 @@ const __dirname = path.dirname(__filename);
 const app = express()
 app.use(express.json())
 
-// const allowedOrigins = [
-//   'https://dax-summary.onrender.com',
-//   'http://localhost:5173'
-// ];
-
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
+const allowedOrigins = [
+  'https://dax-summary.onrender.com',
+  'http://localhost:5173'
+];
 
 const corsOptions = {
-  origin: '*',
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true,
   optionsSuccessStatus: 204,
 };
 
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 
 // app.all('*', (req, res) => {
 //   res.status(400)
@@ -50,11 +43,11 @@ app.use(cors(corsOptions))
 //   }
 // });
 
-app.get("/", (request, response) => {
+app.get("/", cors(corsOptions), (request, response) => {
   return response.json({ message: "Hello World!" })
 })
 
-app.get("/summary/:id", async (req, res) => {
+app.get("/summary/:id", cors(corsOptions), async (req, res) => {
   try {
     await download(req.params.id);
     const audioConverted = await convert();
@@ -67,7 +60,7 @@ app.get("/summary/:id", async (req, res) => {
   }
 });
 
-app.post("/summary", async (req, res) => {
+app.post("/summary", cors(corsOptions), async (req, res) => {
   try {
     const result = await summarize(req.body.text)
     return res.json({ result })
