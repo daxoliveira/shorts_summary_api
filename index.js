@@ -12,19 +12,26 @@ const __dirname = path.dirname(__filename);
 const app = express()
 app.use(express.json())
 
-const allowedOrigins = [
-  'https://dax-summary.onrender.com',
-  'http://localhost:5173'
-];
+// const allowedOrigins = [
+//   'https://dax-summary.onrender.com',
+//   'http://localhost:5173'
+// ];
+
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   credentials: true,
+//   optionsSuccessStatus: 204,
+// };
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: '*',
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true,
   optionsSuccessStatus: 204,
