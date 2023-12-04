@@ -13,6 +13,10 @@ const download = async (videoId) => {
       responseType: "stream",
     });
 
+    if (response.status !== 200) {
+      throw new Error(`Failed to download video. Status code: ${response.status}`);
+    }
+
     const writer = fs.createWriteStream(outputPath);
     response.data.pipe(writer);
 
@@ -21,6 +25,7 @@ const download = async (videoId) => {
       writer.on("error", reject);
     });
   } catch (error) {
+    console.error(error);
     throw new Error(`Error downloading video: ${error.message}`);
   }
 };
