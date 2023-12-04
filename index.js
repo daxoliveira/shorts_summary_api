@@ -13,7 +13,7 @@ const app = express()
 app.use(express.json())
 
 const allowedOrigins = [
-  'https://shorts-summary-client.netlify.app',
+  'https://dax-summary.onrender.com',
   'http://localhost:5173'
 ];
 
