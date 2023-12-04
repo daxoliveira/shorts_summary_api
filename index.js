@@ -48,16 +48,16 @@ app.get("/", (request, response) => {
 
 app.get("/summary/:id", async (req, res) => {
   try {
-    await download(req.params.id)
-    const audioConverted = await convert()
-    const result = await transcribe(audioConverted)
+    await download(req.params.id);
+    const audioConverted = await convert();
+    const result = await transcribe(audioConverted);
 
-    return res.json({ result })
+    return res.json({ result });
   } catch (error) {
-    console.log(error)
-    return res.json({ error })
+    console.error(`Error in /summary/:id route: ${error.message}`);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-})
+});
 
 app.post("/summary", async (req, res) => {
   try {
