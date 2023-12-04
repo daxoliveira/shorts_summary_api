@@ -1,5 +1,5 @@
-const cors = require("cors")
-const express = require("express")
+import cors from "cors"
+import express from "express"
 import * as path from "path"
 import { download } from "./download.js"
 import { transcribe } from "./transcribe.js"
@@ -13,6 +13,7 @@ const app = express()
 app.use(express.json())
 
 const allowedOrigins = [
+  'https://shorts-summary-client.netlify.app',
   'https://dax-summary.onrender.com',
   'http://localhost:5173'
 ];
@@ -30,7 +31,7 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-// app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 
 // app.all('*', (req, res) => {
 //   res.status(400)
@@ -43,11 +44,11 @@ const corsOptions = {
 //   }
 // });
 
-app.get("/", cors(corsOptions), (request, response) => {
+app.get("/", (request, response) => {
   return response.json({ message: "Hello World!" })
 })
 
-app.get("/summary/:id", cors(corsOptions), async (req, res) => {
+app.get("/summary/:id", async (req, res) => {
   try {
     await download(req.params.id);
     const audioConverted = await convert();
@@ -60,7 +61,7 @@ app.get("/summary/:id", cors(corsOptions), async (req, res) => {
   }
 });
 
-app.post("/summary", cors(corsOptions), async (req, res) => {
+app.post("/summary", async (req, res) => {
   try {
     const result = await summarize(req.body.text)
     return res.json({ result })
