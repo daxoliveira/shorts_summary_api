@@ -69,4 +69,8 @@ app.post("/summary", async (req, res) => {
   }
 })
 
+app.use((req, res) => {
+  res.status(404).json({ error: "Not Found" });
+})
+
 app.listen(3333, () => console.log("Server running on port 3333!"))
