@@ -1,5 +1,5 @@
-import cors from "cors"
-import express from "express"
+const cors = require("cors")
+const express = require("express")
 import * as path from "path"
 import { download } from "./download.js"
 import { transcribe } from "./transcribe.js"
