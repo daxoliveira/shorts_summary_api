@@ -1,7 +1,6 @@
 import cors from "cors"
 import express from "express"
 import * as path from "path"
-import corsOptions from "./config/corsOptions.js"
 import { download } from "./download.js"
 import { transcribe } from "./transcribe.js"
 import { summarize } from "./summarize.js"
@@ -12,6 +11,24 @@ const __dirname = path.dirname(__filename);
 
 const app = express()
 app.use(express.json())
+
+const allowedOrigins = [
+  'https://shorts-summary-client.netlify.app'
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
 app.use(cors(corsOptions))
 
 app.all('*', (req, res) => {
