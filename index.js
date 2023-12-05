@@ -13,12 +13,31 @@ const app = express()
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
 
+const allowedOrigins = [
+  'https://dax-summary.onrender.com',
+  'http://localhost:5173'
+];
 
-app.use(cors({ origin: [
-  'http://localhost:5137', 
-  'https://dax-summary.onrender.com' 
-], credentials: true 
-}))
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
+// app.use(cors({ origin: [
+//   'http://localhost:5137', 
+//   'https://dax-summary.onrender.com' 
+// ], credentials: true 
+// }))
 
 
 // const allowedOrigins = [
