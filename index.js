@@ -29,7 +29,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
-  return response.json({ message: "Server running on port 3333!" })
+  return res.json({ message: "Server running on port 3333!" })
 })
 
 app.get("/summary/:id", async (req, res) => {
