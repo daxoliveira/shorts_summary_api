@@ -1,18 +1,15 @@
 import cors from "cors";
 import express from "express";
-import * as path from "path";
 import { download } from "./download.js";
 import { transcribe } from "./transcribe.js";
 import { summarize } from "./summarize.js";
 import { convert } from "./convert.js";
 
-const __filename = new URL(import.meta.url).pathname;
-const __dirname = path.dirname(__filename);
-
 const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
+  'http://localhost:5173',
   'https://dax-summary.onrender.com'
 ];
 
@@ -31,8 +28,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get("/", (request, response) => {
-  return response.json({ message: "Hello World!" })
+app.get("/", (req, res) => {
+  return response.json({ message: "Server running on port 3333!" })
 })
 
 app.get("/summary/:id", async (req, res) => {
