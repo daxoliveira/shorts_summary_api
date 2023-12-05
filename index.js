@@ -11,38 +11,34 @@ const __dirname = path.dirname(__filename);
 
 const app = express()
 app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')))
 
-const allowedOrigins = [
-  'https://shorts-summary-client.netlify.app',
-  'https://dax-summary.onrender.com',
-  'http://localhost:5173'
-];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
+app.use(cors({ origin: [
+  'http://localhost:5137', 
+  'https://dax-summary.onrender.com' 
+], credentials: true 
+}))
 
-app.use(cors(corsOptions))
 
-// app.all('*', (req, res) => {
-//   res.status(400)
-//   if (req.accepts('html')) {
-//     res.sendFile(path.join(__dirname, 'views', '404.html'))
-//   } else if (req.accepts('json')) {
-//     res.json({ message: '404 Not Found'})
-//   } else {
-//     res.type('txt').send('404 Not Found')
-//   }
-// });
+// const allowedOrigins = [
+//   'https://dax-summary.onrender.com',
+//   'http://localhost:5173'
+// ];
+
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   optionsSuccessStatus: 204,
+// };
+
+// app.use(cors(corsOptions));
 
 app.get("/", (request, response) => {
   return response.json({ message: "Hello World!" })
