@@ -1,21 +1,19 @@
-import cors from "cors"
-import express from "express"
-import * as path from "path"
-import { download } from "./download.js"
-import { transcribe } from "./transcribe.js"
-import { summarize } from "./summarize.js"
-import { convert } from "./convert.js"
+import cors from "cors";
+import express from "express";
+import * as path from "path";
+import { download } from "./download.js";
+import { transcribe } from "./transcribe.js";
+import { summarize } from "./summarize.js";
+import { convert } from "./convert.js";
 
 const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
 
-const app = express()
-app.use(express.json())
-app.use(express.static(path.join(__dirname, 'public')))
+const app = express();
+app.use(express.json());
 
 const allowedOrigins = [
-  'https://dax-summary.onrender.com',
-  'http://localhost:5173'
+  'https://dax-summary.onrender.com'
 ];
 
 const corsOptions = {
@@ -32,32 +30,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-// app.use(cors({ origin: [
-//   'http://localhost:5137', 
-//   'https://dax-summary.onrender.com' 
-// ], credentials: true 
-// }))
-
-
-// const allowedOrigins = [
-//   'https://dax-summary.onrender.com',
-//   'http://localhost:5173'
-// ];
-
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-//   optionsSuccessStatus: 204,
-// };
-
-// app.use(cors(corsOptions));
 
 app.get("/", (request, response) => {
   return response.json({ message: "Hello World!" })
